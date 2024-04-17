@@ -50,7 +50,7 @@ export default function NavBar({ routes }) {
 
         <div className="flex flex-col flex-grow">
           <ul className="flex flex-col gap-1">
-            <MainMenuItems menuItems={violationAdminMenuItems} />
+            <MainMenuItems menuItems={superAdminMenuItems} />
           </ul>
         </div>
 
