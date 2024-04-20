@@ -73,7 +73,7 @@ export function ViolationsAdmin() {
   }, [data]);
 
   return (
-    <div className="justify-evenly m-0 px-4 flex-wrap md:flex-nowrap overflow-y-auto border-l pl-4">
+    <main className="justify-evenly m-0 px-4 flex-wrap md:flex-nowrap overflow-y-auto border-l pl-4">
       <div className="w-full ">
         <CardHeader title={'Violations Admin'} />
         {loading ? (
@@ -126,7 +126,7 @@ export function ViolationsAdmin() {
           </div>
         )}
       </div>
-    </div>
+    </main>
   );
 }
 

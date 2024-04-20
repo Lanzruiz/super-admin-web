@@ -6,7 +6,7 @@ import { nanoid } from 'nanoid';
 
 export default function MainMenuItems({ menuItems }) {
   return (
-    <>
+    <section className="">
       {menuItems.map(({ title, menuItems }) => (
         <div className="pb-2" key={nanoid()}>
           <h3
@@ -16,12 +16,10 @@ export default function MainMenuItems({ menuItems }) {
             {title}
           </h3>
           {menuItems.map((item) => (
-            <li key={item.url} className="my-1 ">
-              <RenderListItem item={item} />
-            </li>
+              <RenderListItem key={item.url} item={item} />
           ))}
         </div>
       ))}
-    </>
+    </section>
   );
 }
