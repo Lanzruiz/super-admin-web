@@ -8,6 +8,7 @@ import { ApolloProvider } from '@apollo/client';
 import client from './graphql/apollo';
 import App from './App';
 import { SnackbarProvider } from 'notistack';
+import 'leaflet/dist/leaflet.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <ApolloProvider client={client}>

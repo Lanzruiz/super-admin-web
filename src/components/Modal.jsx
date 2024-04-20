@@ -2,8 +2,9 @@ import { Button, Typography } from '@material-tailwind/react';
 import React, { useEffect, useState } from 'react';
 import '../../public/css/modal.css';
 import { namingFix } from '@/data/namingFix';
+import ObjectReader from './Cards/ObjectReader';
 
-const Modal = ({ isOpen, onClose, rowData }) => {
+const Modal = ({ isOpen, onClose, rowData, title }) => {
   const filteration = [
     '__typename',
     'id',
@@ -11,6 +12,8 @@ const Modal = ({ isOpen, onClose, rowData }) => {
     'vehicleId',
     'violationTypeId',
   ];
+
+  console.log("MODAL DATA RECEIVED: ", rowData)
 
   const renderContent = () => {
     if (!rowData) return null;
@@ -65,7 +68,7 @@ const Modal = ({ isOpen, onClose, rowData }) => {
                   textTransform: 'uppercase',
                 }}
               >
-                {value || ''}
+                {typeof value !== 'object' && value || <ObjectReader item={value} />}
               </Typography>
             )}
           </div>
@@ -88,7 +91,7 @@ const Modal = ({ isOpen, onClose, rowData }) => {
               textTransform: 'uppercase',
             }}
           >
-            Violation Information
+            {`${title} information`}
           </Typography>
         </div>
         <div className="grid-flow-col p-4">{renderContent()}</div>

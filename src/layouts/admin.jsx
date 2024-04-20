@@ -32,7 +32,7 @@ export function Admin() {
   };
 
   return (
-    <div>
+    <>
       {!state.isLoggedIn && (
         <div className="p-12 flex justify-evenly items-center h-screen flex-wrap">
           <Typography className="w-full text-center mb-12">
@@ -45,35 +45,33 @@ export function Admin() {
       )}
       {state.isLoggedIn && (
         //This div holds the navbar and the pages
-        <div className=" bg-blue-gray-50/50 grid grid-cols-12 gap-4 p-8 relative min-h-0 overflow-y-hidden  h-full">
-          <div className="xl:col-span-3 sm:col-span-12 ">
+        <div className="relative flex h-dvh w-dvw select-none font-inter">
+          <nav className="h-full w-[400px]">
             <NavBar routes={routes} />
-          </div>
+          </nav>
 
-          <div className="xl:col-span-9 sm:col-span-12 relative ">
-            <div>
+          <div className="h-full w-full bg-white py-6">
               <MessageReceiver />
-              {/* <DashboardNavbar /> */}
-              <Configurator />
-            </div>
-            <div>
               <Routes>
                 {superAdminMenuItems.map(({ menuItems }) =>
-                  menuItems.map((item) => (
-                    <Route
+                  menuItems.map((item) => {
+                    console.log("SELECTED: ", item.url)
+                    return (
+                      <Route
                       key={item.url}
                       exact
                       path={item.url}
                       element={item.element}
                     />
-                  ))
+                    )
+                  })
                 )}
               </Routes>
-            </div>
+   
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
 

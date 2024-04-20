@@ -135,7 +135,7 @@ export default function UpdateModal({
             </Box>
           )}
         </Box>
-        ;
+        
       </Paper>
     </ModalWrapper>
   );

@@ -9,7 +9,7 @@ export default function RenderListItem({ item }) {
         <Button
           variant={isActive ? 'filled' : 'text'}
           color="indigo"
-          className={`flex items-center gap-4 capitalize w-full py-4 ${isActive ? 'text-white' : 'text-gray-800'}`}
+          className={`flex items-center gap-4 capitalize w-full py-4 ${isActive ? 'text-white' : 'text-gray-800'} shadow-none my-1`}
           fullWidth
           to={item.url}
         >

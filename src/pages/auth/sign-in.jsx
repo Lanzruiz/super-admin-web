@@ -44,7 +44,7 @@ export function SignIn() {
         payload: { user: data.loginOfficer },
         isLoggedIn: true,
       });
-      navigate('/violation-admin/violations-table', {
+      navigate('/admin/violations-admin', {
         state: { from: location.pathname },
       });
       setAutoLogout(expirationTime); // Set auto logout timer

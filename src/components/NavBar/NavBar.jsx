@@ -13,6 +13,7 @@ import {
 } from '@/routes';
 import Divider from '../Divider';
 import { Paper } from '@mui/material';
+import NavUser from './NavUser';
 
 export default function NavBar({ routes }) {
   const [controller, dispatch] = useMaterialTailwindController();
@@ -34,27 +35,25 @@ export default function NavBar({ routes }) {
   };
 
   return (
-    <Paper
-      sx={{
-        p: 2,
-        height: '100vh',
-        overflowY: 'auto',
-      }}
-    >
-      <div className="flex flex-col h-full relative">
-        <NavHeader />
+    <nav className="h-screen flex flex-col gap-2 border-r p-6">
+      <header>
+         <NavHeader />
+      </header>
+        <section className="">
+        <NavUser
+          userName="John Doe"
+          email="whpsmartparkingadmin@gmail.com"
+          role="Main Administrator"
+        />
+      </section>
 
-        <div className="pt-4">
-          <Divider />
-        </div>
-
-        <div className="flex flex-col flex-grow">
+        <section className="flex-1 overflow-y-auto scrollbar-hide">
           <ul className="flex flex-col gap-1">
-            <MainMenuItems menuItems={violationAdminMenuItems} />
+            <MainMenuItems menuItems={superAdminMenuItems} />
           </ul>
-        </div>
-
-        <Button
+        </section>
+      <footer>
+         <Button
           variant={'filled'}
           color={'red'}
           className="flex items-center gap-4 px-4 capitalize my-4"
@@ -70,7 +69,9 @@ export default function NavBar({ routes }) {
             Logout
           </Typography>
         </Button>
-      </div>
-    </Paper>
+        </footer>
+       
+      {/* </div> */}
+    </nav>
   );
 }
