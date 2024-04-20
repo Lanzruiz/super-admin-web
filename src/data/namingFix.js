@@ -51,4 +51,14 @@ export const namingFix = [
   {
     unit: 'Unit',
   },
+   {
+    parkingLotName: 'Parking Lot Name',
+  },
+    {
+    location: 'Location',
+  },
+     {
+    totalSlots: 'Total Slots',
+  },
+
 ];

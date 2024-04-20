@@ -146,3 +146,28 @@ export const GET_WEB_USERS = gql`
     }
   }
 `;
+
+export const GET_PARKING_LOTS = gql`
+query ParkingLots {
+  parkingLots {
+    id
+    parkingLotName
+    initialZoom
+    location
+    longitude
+    latitude
+    totalSlots
+    parkingSlots {
+      parkingSlotName
+    }
+    parkingRates {
+      id
+      parkingRateName
+      firstXHours
+      firstXHoursRate
+      succeedingHoursRate
+    }
+  }
+}
+
+`

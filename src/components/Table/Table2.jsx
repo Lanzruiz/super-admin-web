@@ -27,6 +27,7 @@ export default function Table2({
   refetchData,
   children,
   triggerNotif,
+  modalTitle
 }) {
   const [tableData, setTableData] = useState([]);
   const [tableHeaders, setTableHeaders] = useState([]);
@@ -63,7 +64,7 @@ export default function Table2({
             newData[key] =
               newData[key].description ||
               (objectCellFinder && newData[key][objectCellFinder]) ||
-              "Can't read data";
+              "Object found";
           }
         }
         return newData;
@@ -188,7 +189,7 @@ export default function Table2({
         />
       </div>
 
-      <table className="table p-2">
+      <table className="table p-2 overflow-x-auto">
         <thead>
           <tr>
             {tableHeaders.map((header, index) => {
@@ -348,6 +349,7 @@ export default function Table2({
           isOpen={isModalOpen.modalOpen}
           onClose={closeModal('modalOpen')}
           rowData={rowData}
+          title={modalTitle}
         />
       )}
 

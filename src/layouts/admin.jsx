@@ -50,7 +50,7 @@ export function Admin() {
             <NavBar routes={routes} />
           </nav>
 
-          <div className="h-full w-full bg-white px-8 py-6">
+          <div className="h-full w-full bg-white py-6">
               <MessageReceiver />
               <Routes>
                 {superAdminMenuItems.map(({ menuItems }) =>
