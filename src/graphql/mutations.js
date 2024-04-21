@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const CREATE_WEB_USER = gql`
   mutation CreateUser($userInput: UserInput) {
@@ -26,5 +26,20 @@ export const EDIT_USER = gql`
 export const DELETE_USER = gql`
   mutation DeleteUser($id: ID!, $isWebUser: Boolean) {
     deleteUser(ID: $id, isWebUser: $isWebUser)
+  }
+`;
+
+export const EDIT_PARKING_LOT = gql`
+  mutation UpdateParkingLot(
+    $updateParkingLotId: ID!
+    $parkingLotInput: ParkingLotInput
+  ) {
+    updateParkingLot(id: $updateParkingLotId, parkingLotInput: $parkingLotInput)
+  }
+`;
+
+export const DELETE_PARKING_LOT = gql`
+  mutation DeleteParkingLot($deleteParkingLotId: ID!) {
+    deleteParkingLot(id: $deleteParkingLotId)
   }
 `;
