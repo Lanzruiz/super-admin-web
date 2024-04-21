@@ -43,3 +43,46 @@ export const DELETE_PARKING_LOT = gql`
     deleteParkingLot(id: $deleteParkingLotId)
   }
 `;
+
+export const CREATE_PARKING_SLOT = gql`
+  mutation CreateParkingSlot($parkingSlotInput: ParkingSlotInput) {
+    createParkingSlot(parkingSlotInput: $parkingSlotInput) {
+      id
+      parkingLotId
+      parkingSlotName
+      status
+      slotType
+      lastStatusChange
+      longitude {
+        top_left
+        top_right
+        bottom_left
+        bottom_right
+      }
+      latitude {
+        top_left
+        top_right
+        bottom_left
+        bottom_right
+      }
+    }
+  }
+`;
+
+export const EDIT_PARKING_SLOT = gql`
+  mutation UpdateParkingSlot(
+    $updateParkingSlotId: ID!
+    $parkingSlotInput: ParkingSlotInput
+  ) {
+    updateParkingSlot(
+      id: $updateParkingSlotId
+      parkingSlotInput: $parkingSlotInput
+    )
+  }
+`;
+
+export const DELETE_PARKING_SLOT = gql`
+  mutation DeleteParkingSlot($deleteParkingSlotId: ID!) {
+    deleteParkingSlot(id: $deleteParkingSlotId)
+  }
+`;

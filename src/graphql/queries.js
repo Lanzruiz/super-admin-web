@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const GET_USERS = gql`
   query User {
@@ -148,26 +148,50 @@ export const GET_WEB_USERS = gql`
 `;
 
 export const GET_PARKING_LOTS = gql`
-query ParkingLots {
-  parkingLots {
-    id
-    parkingLotName
-    initialZoom
-    location
-    longitude
-    latitude
-    totalSlots
-    parkingSlots {
-      parkingSlotName
-    }
-    parkingRates {
+  query ParkingLots {
+    parkingLots {
       id
-      parkingRateName
-      firstXHours
-      firstXHoursRate
-      succeedingHoursRate
+      parkingLotName
+      initialZoom
+      location
+      longitude
+      latitude
+      totalSlots
+      parkingSlots {
+        parkingSlotName
+      }
+      parkingRates {
+        id
+        parkingRateName
+        firstXHours
+        firstXHoursRate
+        succeedingHoursRate
+      }
     }
   }
-}
+`;
 
-`
+export const GET_PARKING_LOT_SLOTS = gql`
+  query ParkingLotSlots($parkingLotId: ID!) {
+    parkingLotSlots(parkingLotId: $parkingLotId) {
+      id
+      parkingLotId
+      parkingSlotName
+      status
+      slotType
+      lastStatusChange
+      longitude {
+        top_left
+        top_right
+        bottom_left
+        bottom_right
+      }
+      latitude {
+        top_left
+        top_right
+        bottom_left
+        bottom_right
+      }
+    }
+  }
+`;

@@ -21,7 +21,7 @@ import { CREATE_WEB_USER } from "@/graphql/mutations";
 import ModalWrapper from "@/components/Modal/ModalWrapper";
 import MapComponent from "@/components/Map/MapComponent";
 
-export default function CreateParkingLotNodal({
+export default function CreateParkingLotModal({
   openModal,
   closeModal,
   refetchData,

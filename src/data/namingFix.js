@@ -1,64 +1,78 @@
 export const namingFix = [
   {
-    violationName: 'Violation Name',
+    violationName: "Violation Name",
   },
   {
-    vehicleId: 'Vehicle ID',
+    vehicleId: "Vehicle ID",
   },
   {
-    violationTypeId: 'Violation Type ID',
+    violationTypeId: "Violation Type ID",
   },
   {
-    plateNumber: 'Plate Number',
+    plateNumber: "Plate Number",
   },
   {
-    officerId: 'Officer ID',
+    officerId: "Officer ID",
   },
   {
-    createdAt: 'Date/Time Stamp',
+    createdAt: "Date/Time Stamp",
   },
   {
-    violationType: 'Description',
+    violationType: "Description",
   },
 
   {
-    description: 'Description',
+    description: "Description",
   },
   {
-    officer: 'Officer',
+    officer: "Officer",
   },
   {
-    timestamp: 'Timestamp',
+    timestamp: "Timestamp",
   },
   {
-    status: 'Status',
+    status: "Status",
   },
   {
-    fullName: 'Full Name',
+    fullName: "Full Name",
   },
   {
-    email: 'Email',
+    email: "Email",
   },
   {
-    phoneNumber: 'Phone Number',
+    phoneNumber: "Phone Number",
   },
   {
-    address: 'Address',
+    address: "Address",
   },
   {
-    trafficEnforcerLevel: 'Level',
+    trafficEnforcerLevel: "Level",
   },
   {
-    unit: 'Unit',
+    unit: "Unit",
   },
-   {
-    parkingLotName: 'Parking Lot Name',
+  {
+    parkingLotName: "Parking Lot Name",
   },
-    {
-    location: 'Location',
+  {
+    location: "Location",
   },
-     {
-    totalSlots: 'Total Slots',
+  {
+    totalSlots: "Total Slots",
   },
-
+  {
+    parkingSlotName: "Parking Slot Name",
+  },
+  {
+    slotType: "Slot Type",
+  },
+  {
+    longitude: "Longitude",
+  },
+  {
+    latitude: "Latitude",
+  },
+  {
+    role: "Role",
+  },
 ];

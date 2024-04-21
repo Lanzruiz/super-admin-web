@@ -2,15 +2,11 @@ import { Card, Typography } from "@material-tailwind/react";
 import { useQuery } from "@apollo/client";
 import { GET_PARKING_LOTS, GET_VIOLATIONS } from "@/graphql/queries";
 import { useEffect, useState } from "react";
-import Table from "@/components/Table/Table";
 import LoadingScreen from "@/components/LoadingScreen/LoadingScreen";
-import NavBar from "@/components/NavBar/NavBar";
-import routes from "@/routes";
 import CardHeader from "@/components/CardHeader";
-import Table2 from "@/components/Table/Table2";
-import CreateParkingLotNodal from "@/components/ModalForms/ParkingLot/CreateParkingLotModal";
 import ParkingLotsTable from "@/components/Table/ParkingLotsTable";
 import RegularSnackBar from "@/components/Notification/RegularSnackBar";
+import CreateParkingLotModal from "@/components/ModalForms/ParkingLot/CreateParkingLotModal";
 
 export function ParkingLots() {
   const pageTitle = "Parking Lots";
@@ -86,7 +82,7 @@ export function ParkingLots() {
                 Add New Parking Lot
               </button>
             </ParkingLotsTable>
-            <CreateParkingLotNodal
+            <CreateParkingLotModal
               openModal={isOpen}
               closeModal={handleOpenModal}
               triggerNotif={handleToggle}

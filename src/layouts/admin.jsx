@@ -4,20 +4,20 @@ import {
   Navigate,
   useLocation,
   useNavigate,
-} from 'react-router-dom';
-import { Cog6ToothIcon } from '@heroicons/react/24/solid';
-import { Button, IconButton, Typography } from '@material-tailwind/react';
+} from "react-router-dom";
+import { Cog6ToothIcon } from "@heroicons/react/24/solid";
+import { Button, IconButton, Typography } from "@material-tailwind/react";
 import {
   Sidenav,
   DashboardNavbar,
   Configurator,
   Footer,
-} from '@/widgets/layout';
-import routes, { officerMenuItems, superAdminMenuItems } from '@/routes';
-import { useMaterialTailwindController, setOpenConfigurator } from '@/context';
-import { useAuth } from '@/context/AuthContext';
-import NavBar from '@/components/NavBar/NavBar';
-import { MessageReceiver } from '@/graphql/apollo-subcription';
+} from "@/widgets/layout";
+import routes, { officerMenuItems, superAdminMenuItems } from "@/routes";
+import { useMaterialTailwindController, setOpenConfigurator } from "@/context";
+import { useAuth } from "@/context/AuthContext";
+import NavBar from "@/components/NavBar/NavBar";
+import { MessageReceiver } from "@/graphql/apollo-subcription";
 
 export function Admin() {
   const [controller, dispatch] = useMaterialTailwindController();
@@ -26,16 +26,18 @@ export function Admin() {
   const location = useLocation();
   const navigate = useNavigate();
 
+  console.log("STATE DATA: ", state);
+
   const RedirectLogin = (e) => {
     e.preventDefault();
-    navigate('/auth/sign-in', { state: { from: location.pathname } });
+    navigate("/auth/sign-in", { state: { from: location.pathname } });
   };
 
   return (
     <>
       {!state.isLoggedIn && (
-        <div className="p-12 flex justify-evenly items-center h-screen flex-wrap">
-          <Typography className="w-full text-center mb-12">
+        <div className="flex h-screen flex-wrap items-center justify-evenly p-12">
+          <Typography className="mb-12 w-full text-center">
             YOU ARE NOT ALLOWED TO ACCESS THIS
           </Typography>
           <Button className="bg-primary" onClick={RedirectLogin}>
@@ -45,29 +47,27 @@ export function Admin() {
       )}
       {state.isLoggedIn && (
         //This div holds the navbar and the pages
-        <div className="relative flex h-dvh w-dvw select-none font-inter">
+        <div className="h-dvh w-dvw relative flex select-none font-inter">
           <nav className="h-full w-[400px]">
             <NavBar routes={routes} />
           </nav>
 
           <div className="h-full w-full bg-white py-6">
-              <MessageReceiver />
-              <Routes>
-                {superAdminMenuItems.map(({ menuItems }) =>
-                  menuItems.map((item) => {
-                    console.log("SELECTED: ", item.url)
-                    return (
-                      <Route
+            <MessageReceiver />
+            <Routes>
+              {superAdminMenuItems.map(({ menuItems }) =>
+                menuItems.map((item) => {
+                  return (
+                    <Route
                       key={item.url}
                       exact
                       path={item.url}
                       element={item.element}
                     />
-                    )
-                  })
-                )}
-              </Routes>
-   
+                  );
+                }),
+              )}
+            </Routes>
           </div>
         </div>
       )}
@@ -75,6 +75,6 @@ export function Admin() {
   );
 }
 
-Admin.displayName = '/src/layout/admin.jsx';
+Admin.displayName = "/src/layout/admin.jsx";
 
 export default Admin;
