@@ -16,7 +16,6 @@ export default function UpdateParkingSlotModal({
   refetchData,
   toggleSnack,
 }) {
-  console.log("Parking Slot Data: ", rowData);
   const [updateParkingSlot, { loading: updateParkingLotLoading }] =
     useMutation(EDIT_PARKING_SLOT);
   const [loading, setLoading] = useState(false);
@@ -80,7 +79,6 @@ export default function UpdateParkingSlotModal({
           },
         },
       });
-      console.log("RESPONSE: ", data);
     } catch (error) {
       setError(error.message);
     } finally {
@@ -90,11 +88,6 @@ export default function UpdateParkingSlotModal({
       closeModal();
     }
   };
-
-  useEffect(() => {
-    console.log("Form Data: ", formData);
-    console.log("Error", error);
-  }, [formData, error]);
 
   return (
     <ModalWrapper

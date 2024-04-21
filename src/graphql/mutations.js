@@ -86,3 +86,31 @@ export const DELETE_PARKING_SLOT = gql`
     deleteParkingSlot(id: $deleteParkingSlotId)
   }
 `;
+
+export const CREATE_PARKING_RATE = gql`
+  mutation CreateParkingRate($parkingRateInput: ParkingRateInput) {
+    createParkingRate(parkingRateInput: $parkingRateInput) {
+      id
+      parkingLotId
+      parkingRateName
+      vehicleType
+      firstXHours
+      firstXHoursRate
+      succeedingHoursRate
+      createdAt
+      updatedAt
+    }
+  }
+`;
+
+export const EDIT_PARKING_RATE = gql`
+  mutation UpdateParkingRate($id: ID!, $parkingRateInput: ParkingRateInput) {
+    updateParkingRate(ID: $id, parkingRateInput: $parkingRateInput)
+  }
+`;
+
+export const DELETE_PARKING_RATE = gql`
+  mutation DeleteParkingRate($id: ID!) {
+    deleteParkingRate(ID: $id)
+  }
+`;

@@ -162,6 +162,7 @@ export const GET_PARKING_LOTS = gql`
       }
       parkingRates {
         id
+        vehicleType
         parkingRateName
         firstXHours
         firstXHoursRate
@@ -192,6 +193,19 @@ export const GET_PARKING_LOT_SLOTS = gql`
         bottom_left
         bottom_right
       }
+    }
+  }
+`;
+
+export const GET_PARKING_RATES = gql`
+  query ParkingRates {
+    parkingRates {
+      id
+      parkingRateName
+      firstXHours
+      firstXHoursRate
+      succeedingHoursRate
+      vehicleType
     }
   }
 `;

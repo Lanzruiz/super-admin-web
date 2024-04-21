@@ -15,7 +15,6 @@ export default function CreateParkingSlotModal({
   triggerNotif,
   parkingLotData,
 }) {
-  console.log("Parking Lot Data in Parking Slot: ", parkingLotData);
   const [createParkingSlot, { loading: createUserLoading }] =
     useMutation(CREATE_PARKING_SLOT);
   const [loading, setLoading] = useState(false);
@@ -79,7 +78,6 @@ export default function CreateParkingSlotModal({
           },
         },
       });
-      console.log("RESPONSE: ", data);
     } catch (error) {
       setError(error.message);
     } finally {
@@ -89,11 +87,6 @@ export default function CreateParkingSlotModal({
       closeModal();
     }
   };
-
-  useEffect(() => {
-    console.log("Form Data: ", formData);
-    console.log("Error", error);
-  }, [formData, error]);
 
   return (
     <ModalWrapper open={openModal} onClose={closeModal} containerSize={"md"}>

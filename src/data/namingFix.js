@@ -75,4 +75,19 @@ export const namingFix = [
   {
     role: "Role",
   },
+  {
+    vehicleType: "Type",
+  },
+  {
+    parkingRateName: "Parking Rate Name",
+  },
+  {
+    firstXHours: "First X Hours",
+  },
+  {
+    firstXHoursRate: "First X Hours Rate",
+  },
+  {
+    succeedingHoursRate: "Succeeding Hours Rate",
+  },
 ];

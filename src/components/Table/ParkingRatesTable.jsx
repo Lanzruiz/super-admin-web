@@ -1,22 +1,21 @@
-import { Card, Typography } from "@material-tailwind/react";
+import { Typography } from "@material-tailwind/react";
 import React, { useEffect, useState } from "react";
 import { namingFix } from "@/data/namingFix";
-import Pagination from "../Pagination";
 import StatusBadge from "../StatusBadge";
 import Modal from "../Modal";
 import Pagination2 from "../Pagination/Pagination2";
-import SearchField from "../SearchField";
 import { MoreHoriz, UnfoldMore } from "@mui/icons-material";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { Box, Grid, TextField } from "@mui/material";
 import MapComponent from "../Map/MapComponent";
-import UpdateParkingSlotModal from "../ModalForms/ParkingSlot/UpdateParkingSlotModal.";
 import ObjectReader from "../Cards/ObjectReader";
 import DeleteParkingSlotModal from "../ModalForms/ParkingSlot/DeleteParkingSlotModal";
+import UpdateParkingRateModal from "../ModalForms/ParkingRate/UpdateParkingRateModal";
+import DeleteParkingRateModal from "../ModalForms/ParkingRate/DeleteParkingRateModal";
 
-export default function ParkingSlotsTable({
+export default function ParkingRatesTable({
   data,
   headers,
   filterKeysValues,
@@ -378,7 +377,7 @@ export default function ParkingSlotsTable({
         />
       )}
       {isModalOpen.openUpdateModal && (
-        <UpdateParkingSlotModal
+        <UpdateParkingRateModal
           openUpdateModal={isModalOpen.openUpdateModal}
           closeModal={closeModal("openUpdateModal")}
           rowData={rowData}
@@ -387,7 +386,7 @@ export default function ParkingSlotsTable({
         />
       )}
       {isModalOpen.openDeleteModal && (
-        <DeleteParkingSlotModal
+        <DeleteParkingRateModal
           openDeleteModal={isModalOpen.openDeleteModal}
           closeDeleteModal={closeModal("openDeleteModal")}
           rowData={rowData}

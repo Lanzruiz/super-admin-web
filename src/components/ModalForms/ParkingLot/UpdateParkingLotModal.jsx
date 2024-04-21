@@ -49,8 +49,6 @@ export default function UpdateParkingLotModal({
     }));
   };
 
-  console.log("UPDATE PARKING LOT: ", rowData);
-
   const handleUpdate = async () => {
     setLoading(true);
     setError(null);

@@ -26,7 +26,7 @@ export function Admin() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  console.log("STATE DATA: ", state);
+  // console.log("STATE DATA: ", state);
 
   const RedirectLogin = (e) => {
     e.preventDefault();

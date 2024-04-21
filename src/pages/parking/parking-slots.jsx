@@ -14,7 +14,6 @@ export function ParkingSlots() {
   const { loading, error, data, refetch } = useQuery(GET_PARKING_LOT_SLOTS, {
     variables: { parkingLotId: optionSelected && optionSelected.id },
   });
-  console.log("PARKING LOTS SLOTS: ", data && data?.parkingLotSlots);
   const pageTitle = "Parking Slots";
   const [parkingLotSlots, setParkingLotSlots] = useState();
   const [tableHead, setTableHead] = useState();
@@ -63,7 +62,6 @@ export function ParkingSlots() {
     });
   };
   const handleOptionSelected = (option) => {
-    console.log("Selected option:", option);
     setOptionSelected(option);
     // Handle the selected option here
   };
