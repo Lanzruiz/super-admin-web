@@ -26,6 +26,7 @@ export function ViolationsAdmin() {
     createAdminSnack: false,
     deleteUserSnack: false,
   });
+  const [roleName, setRoleName] = useState();
 
   const handleOpenModal = () => {
     setIsOpen((prev) => !prev);
@@ -83,6 +84,7 @@ export function ViolationsAdmin() {
           data.violationWebUser.length !== 0 &&
           Object.keys(data.violationWebUser[0]),
       );
+      setRoleName(data && Object.keys(data)[0]);
     }
   }, [data]);
 
@@ -99,6 +101,7 @@ export function ViolationsAdmin() {
           <div>
             <Table2
               data={webUsers}
+              dataProperty={roleName}
               filterKeysValues={filterTableHeads}
               itemsPerPage={6}
               objectCellFinder="roleName"

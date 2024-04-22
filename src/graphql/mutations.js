@@ -42,6 +42,57 @@ export const DELETE_VIOLATION_WEB_USER = gql`
   }
 `;
 
+export const CREATE_PARKING_SITE_WEB_USER = gql`
+  mutation CreateParkingsiteWeUser(
+    $parkingsiteWebUserInput: ParkingsiteWebUserInput
+  ) {
+    createParkingsiteWeUser(parkingsiteWebUserInput: $parkingsiteWebUserInput) {
+      id
+      firstName
+      lastName
+      fullName
+      email
+      phoneNumber
+      address
+      status
+      roleId
+      role {
+        id
+        roleName
+      }
+      parkingLotId
+      assignedParkingLot {
+        id
+        parkingLotName
+      }
+      password
+      token
+      createdAt
+      updatedAt
+      createdBy
+      updatedBy
+    }
+  }
+`;
+
+export const EDIT_PARKING_SITE_WEB_USER = gql`
+  mutation EditParkingsiteWeUser(
+    $id: ID!
+    $parkingsiteWebUserInput: ParkingsiteWebUserInput
+  ) {
+    editParkingsiteWeUser(
+      ID: $id
+      parkingsiteWebUserInput: $parkingsiteWebUserInput
+    )
+  }
+`;
+
+export const DELETE_PARKING_SITE_WEB_USER = gql`
+  mutation DeleteParkingsiteWeUser($id: ID!) {
+    deleteParkingsiteWeUser(ID: $id)
+  }
+`;
+
 export const CREATE_WEB_USER = gql`
   mutation CreateUser($userInput: UserInput) {
     createUser(userInput: $userInput) {

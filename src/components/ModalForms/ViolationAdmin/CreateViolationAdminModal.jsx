@@ -30,7 +30,7 @@ export default function CreateViolationAdminModal({
   const { data, loading: rolesLoading } = useQuery(GET_ROLES);
   const [roles, setRoles] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
-  const [createUser, { loading: createUserLoading }] = useMutation(
+  const [createViolationWebUser, { loading: createUserLoading }] = useMutation(
     CREATE_VIOLATION_WEB_USER,
   );
   const [error, setError] = useState("");

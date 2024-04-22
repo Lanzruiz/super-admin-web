@@ -1,4 +1,7 @@
-import { EDIT_VIOLATION_WEB_USER } from "@/graphql/mutations";
+import {
+  EDIT_PARKING_SITE_WEB_USER,
+  EDIT_VIOLATION_WEB_USER,
+} from "@/graphql/mutations";
 import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
 import FormLabel from "@/components/Forms/FormLabel";
@@ -7,6 +10,7 @@ import useRoles from "@/utils/hooks/useRoles";
 import { Button, Typography } from "@material-tailwind/react";
 import { Box, Grid, Paper } from "@mui/material";
 import ModalWrapper from "@/components/Modal/ModalWrapper";
+import { useAuth } from "@/context/AuthContext";
 
 export default function UpdateModal({
   openUpdateModal,
@@ -15,9 +19,15 @@ export default function UpdateModal({
   title,
   refetchData,
   toggleSnack,
+  dataProperty,
 }) {
   const { roles, rolesLoading } = useRoles();
-  const [editUser] = useMutation(EDIT_VIOLATION_WEB_USER);
+  const [editUser] = useMutation(
+    dataProperty && dataProperty === "parkingsiteWeUser"
+      ? EDIT_PARKING_SITE_WEB_USER
+      : EDIT_VIOLATION_WEB_USER,
+  );
+
   const [formData, setFormData] = useState({
     id: rowData.id,
     firstName: rowData.firstName || "",
@@ -36,7 +46,7 @@ export default function UpdateModal({
     }));
   };
 
-  const handleUpdate = async () => {
+  const handleUpdateViolationWebUser = async () => {
     setLoading(true);
     setError(null);
 
@@ -45,6 +55,30 @@ export default function UpdateModal({
         variables: {
           id: formData.id,
           violationWebUserInput: {
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            email: formData.email,
+            phoneNumber: formData.phoneNumber,
+          },
+        },
+      });
+    } catch (error) {
+      setError(error.message);
+    }
+    toggleSnack("updateUserSnack");
+    setLoading(false);
+    refetchData();
+    closeModal();
+  };
+  const handleUpdateParkingSiteWebUser = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const { data } = await editUser({
+        variables: {
+          id: formData.id,
+          parkingsiteWebUserInput: {
             firstName: formData.firstName,
             lastName: formData.lastName,
             email: formData.email,
@@ -128,7 +162,9 @@ export default function UpdateModal({
                 variant="filled"
                 className="bg-primary"
                 onClick={() => {
-                  handleUpdate();
+                  dataProperty && dataProperty === "violationWebUser"
+                    ? handleUpdateViolationWebUser()
+                    : handleUpdateParkingSiteWebUser();
                 }}
                 disabled={loading}
               >

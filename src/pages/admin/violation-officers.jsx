@@ -19,6 +19,8 @@ export function ViolationsOfficer() {
     deleteUserSnack: false,
   });
 
+  const [roleName, setRoleName] = useState();
+
   const handleOpenModal = () => {
     setIsOpen((prev) => !prev);
   };
@@ -76,10 +78,9 @@ export function ViolationsOfficer() {
           data.violationWebUser.length !== 0 &&
           Object.keys(data.violationWebUser[0]),
       );
+      setRoleName(data && Object.keys(data)[0]);
     }
   }, [data]);
-
-  console.log(webUsers);
 
   return (
     <div className="m-0 flex-wrap justify-evenly overflow-y-auto border-l px-4 pl-4 md:flex-nowrap">
@@ -94,6 +95,7 @@ export function ViolationsOfficer() {
           <div>
             <Table2
               data={webUsers}
+              dataProperty={roleName}
               filterKeysValues={filterTableHeads}
               itemsPerPage={6}
               objectCellFinder="roleName"

@@ -1,7 +1,10 @@
 import ModalWrapper from "@/components/Modal/ModalWrapper";
 import Modal2 from "@/components/Modal2";
 import RegularSnackBar from "@/components/Notification/RegularSnackBar";
-import { DELETE_VIOLATION_WEB_USER } from "@/graphql/mutations";
+import {
+  DELETE_PARKING_SITE_WEB_USER,
+  DELETE_VIOLATION_WEB_USER,
+} from "@/graphql/mutations";
 import { useMutation } from "@apollo/client";
 import { Box, Paper, Typography, Button } from "@mui/material";
 import { red } from "@mui/material/colors";
@@ -13,17 +16,34 @@ export default function DeleteModal({
   rowData,
   refetchData,
   toggleSnack,
+  dataProperty,
 }) {
-  const [deleteViolationWebUser] = useMutation(DELETE_VIOLATION_WEB_USER);
+  const [deleteUser] = useMutation(
+    dataProperty && dataProperty === "parkingsiteWeUser"
+      ? DELETE_PARKING_SITE_WEB_USER
+      : DELETE_VIOLATION_WEB_USER,
+  );
   const [openSnack, setOpenSnack] = useState(false);
 
   const handleClose = () => {
     setOpenSnack(false);
   };
 
-  const handleDelete = async () => {
+  const handleDeleteViolationWebUser = async () => {
     try {
-      const { data } = await deleteViolationWebUser({
+      const { data } = await deleteUser({
+        variables: {
+          id: rowData.id,
+        },
+      });
+      toggleSnack("deleteUserSnack");
+      refetchData();
+      closeDeleteModal();
+    } catch (error) {}
+  };
+  const handleDeleteParkingSiteWebUser = async () => {
+    try {
+      const { data } = await deleteUser({
         variables: {
           id: rowData.id,
         },
@@ -87,7 +107,11 @@ export default function DeleteModal({
                 backgroundColor: "red",
                 fontWeight: "bold",
               }}
-              onClick={() => handleDelete()}
+              onClick={() => {
+                dataProperty && dataProperty === "parkingsiteWeUser"
+                  ? handleDeleteParkingSiteWebUser()
+                  : handleDeleteViolationWebUser();
+              }}
             >
               Delete
             </Button>

@@ -1,5 +1,34 @@
 import { gql } from "@apollo/client";
 
+export const GET_PARKING_SITE_WEB_USER = gql`
+  query ParkingsiteWeUser {
+    parkingsiteWeUser {
+      id
+      firstName
+      lastName
+      fullName
+      email
+      phoneNumber
+      address
+      status
+      roleId
+      role {
+        roleName
+      }
+      parkingLotId
+      assignedParkingLot {
+        parkingLotName
+      }
+      password
+      token
+      createdAt
+      updatedAt
+      createdBy
+      updatedBy
+    }
+  }
+`;
+
 export const GET_VIOLATION_WEB_USER = gql`
   query ViolationWebUser {
     violationWebUser {
