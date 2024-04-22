@@ -4,25 +4,25 @@ import {
   Navigate,
   useLocation,
   useNavigate,
-} from 'react-router-dom';
-import { Cog6ToothIcon } from '@heroicons/react/24/solid';
-import { Button, IconButton, Typography } from '@material-tailwind/react';
+} from "react-router-dom";
+import { Cog6ToothIcon } from "@heroicons/react/24/solid";
+import { Button, IconButton, Typography } from "@material-tailwind/react";
 import {
   Sidenav,
   DashboardNavbar,
   Configurator,
   Footer,
-} from '@/widgets/layout';
+} from "@/widgets/layout";
 import routes, {
   officerMenuItems,
   superAdminMenuItems,
   violationAdminMenuItems,
-} from '@/routes';
-import { useMaterialTailwindController, setOpenConfigurator } from '@/context';
-import { useAuth } from '@/context/AuthContext';
-import NavBar from '@/components/NavBar/NavBar';
-import { MessageReceiver } from '@/graphql/apollo-subcription';
-import { Paper } from '@mui/material';
+} from "@/routes";
+import { useMaterialTailwindController, setOpenConfigurator } from "@/context";
+import { useAuth } from "@/context/AuthContext";
+import NavBar from "@/components/NavBar/NavBar";
+import { MessageReceiver } from "@/graphql/apollo-subcription";
+import { Paper } from "@mui/material";
 
 export function ViolationAdmin() {
   const [controller, dispatch] = useMaterialTailwindController();
@@ -33,18 +33,18 @@ export function ViolationAdmin() {
 
   const RedirectLogin = (e) => {
     e.preventDefault();
-    navigate('/auth/sign-in', { state: { from: location.pathname } });
+    navigate("/auth/sign-in", { state: { from: location.pathname } });
   };
 
   return (
     <Paper
       sx={{
-        height: '100vh',
+        height: "100vh",
       }}
     >
       {!state.isLoggedIn && (
-        <div className="p-12 flex justify-evenly items-center h-screen flex-wrap">
-          <Typography className="w-full text-center mb-12">
+        <div className="flex h-screen flex-wrap items-center justify-evenly p-12">
+          <Typography className="mb-12 w-full text-center">
             YOU ARE NOT ALLOWED TO ACCESS THIS
           </Typography>
           <Button className="bg-primary" onClick={RedirectLogin}>
@@ -54,12 +54,12 @@ export function ViolationAdmin() {
       )}
       {state.isLoggedIn && (
         //This div holds the navbar and the pages
-        <div className=" bg-blue-gray-50/50 grid grid-cols-12 gap-4  relative min-h-0 overflow-y-hidden  h-full">
-          <div className="xl:col-span-3 sm:col-span-12 ">
+        <div className=" relative grid h-full min-h-0  grid-cols-12 gap-4 overflow-y-hidden  bg-blue-gray-50/50">
+          <div className="sm:col-span-12 xl:col-span-3 ">
             <NavBar routes={routes} />
           </div>
 
-          <div className="xl:col-span-9 sm:col-span-12 relative ">
+          <div className="relative sm:col-span-12 xl:col-span-9 ">
             <div>
               <MessageReceiver />
               {/* <DashboardNavbar /> */}
@@ -75,7 +75,7 @@ export function ViolationAdmin() {
                       path={item.url}
                       element={item.element}
                     />
-                  ))
+                  )),
                 )}
               </Routes>
             </div>
@@ -86,6 +86,6 @@ export function ViolationAdmin() {
   );
 }
 
-ViolationAdmin.displayName = '/src/layout/violation-admin.jsx';
+ViolationAdmin.displayName = "/src/layout/violation-admin.jsx";
 
 export default ViolationAdmin;

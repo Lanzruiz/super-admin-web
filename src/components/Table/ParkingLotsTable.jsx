@@ -16,8 +16,10 @@ import FormTextField from "../Forms/FormTextField";
 import FormLabel from "../Forms/FormLabel";
 import UpdateModal from "../ModalForms/UpdateModal";
 import DeleteModal from "../ModalForms/DeleteModal";
+import UpdateParkingLotModal from "../ModalForms/ParkingLot/UpdateParkingLotModal";
+import DeleteParkingLotModal from "../ModalForms/ParkingLot/DeleteParkingLotModal";
 
-export default function Table2({
+export default function ParkingLotsTable({
   data,
   headers,
   filterKeysValues,
@@ -343,7 +345,6 @@ export default function Table2({
         </tbody>
       </table>
       <div className="flex justify-center p-4"></div>
-
       {isModalOpen.modalOpen && (
         <Modal
           isOpen={isModalOpen.modalOpen}
@@ -352,9 +353,8 @@ export default function Table2({
           title={modalTitle}
         />
       )}
-
       {isModalOpen.openUpdateModal && (
-        <UpdateModal
+        <UpdateParkingLotModal
           openUpdateModal={isModalOpen.openUpdateModal}
           closeModal={closeModal("openUpdateModal")}
           rowData={rowData}
@@ -362,9 +362,8 @@ export default function Table2({
           toggleSnack={triggerNotif}
         />
       )}
-
       {isModalOpen.openDeleteModal && (
-        <DeleteModal
+        <DeleteParkingLotModal
           openDeleteModal={isModalOpen.openDeleteModal}
           closeDeleteModal={closeModal("openDeleteModal")}
           rowData={rowData}

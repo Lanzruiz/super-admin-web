@@ -1,21 +1,21 @@
-import { useAuth } from '@/context/AuthContext';
+import { useAuth } from "@/context/AuthContext";
 import {
   Card,
   Input,
   Checkbox,
   Button,
   Typography,
-} from '@material-tailwind/react';
-import { useEffect, useState } from 'react';
-import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
-import { useMutation } from '@apollo/client';
-import { LOGIN_OFFICER } from '../../graphql/queries';
-import Modal2 from '@/components/Modal2';
+} from "@material-tailwind/react";
+import { useEffect, useState } from "react";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useMutation } from "@apollo/client";
+import { LOGIN_OFFICER } from "../../graphql/queries";
+import Modal2 from "@/components/Modal2";
 
 export function SignIn() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const { state, dispatchAuth } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
@@ -34,28 +34,42 @@ export function SignIn() {
           },
         },
       });
-      const token = data.loginOfficer.token;
-      const expirationTime = 3600 * 1000; // Set expiration time to 1 hour
-      const expiryDate = new Date().getTime() + expirationTime;
-      localStorage.setItem('token', token);
-      localStorage.setItem('expiryDate', expiryDate); // Store expiry date in localStorage
-      dispatchAuth({
-        type: 'LOGIN',
-        payload: { user: data.loginOfficer },
-        isLoggedIn: true,
-      });
-      navigate('/admin/violations-admin', {
-        state: { from: location.pathname },
-      });
-      setAutoLogout(expirationTime); // Set auto logout timer
+
+      console.log("Login Response: ", data);
+      console.log(
+        "LOGGED IN? ",
+        data.loginOfficer && data.loginOfficer.id ? true : false,
+      );
+      if (data.loginOfficer && data.loginOfficer.id) {
+        const token =
+          data.loginOfficer && data.loginOfficer.id
+            ? data.loginOfficer.token
+            : "";
+        const expirationTime = 3600 * 1000; // Set expiration time to 1 hour
+        const expiryDate = new Date().getTime() + expirationTime;
+        localStorage.setItem("token", token);
+        localStorage.setItem("expiryDate", expiryDate); // Store expiry date in localStorage
+        dispatchAuth({
+          type: "LOGIN",
+          payload: { user: data.loginOfficer, isLoggedIn: true },
+        });
+        navigate("/admin/violations-admin", {
+          state: { from: location.pathname },
+        });
+        setAutoLogout(expirationTime);
+      } else {
+        setError(data.loginOfficer.message);
+      }
+
+      // Set auto logout timer
     } catch (error) {
       setError(error.message);
     }
   };
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    const expiryDate = localStorage.getItem('expiryDate');
+    const token = localStorage.getItem("token");
+    const expiryDate = localStorage.getItem("expiryDate");
     if (!token || !expiryDate) {
       return;
     }
@@ -74,10 +88,10 @@ export function SignIn() {
   };
 
   const logoutHandler = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('expiryDate');
+    localStorage.removeItem("token");
+    localStorage.removeItem("expiryDate");
     dispatchAuth({
-      type: 'LOGOUT',
+      type: "LOGOUT",
     });
   };
 
@@ -90,23 +104,23 @@ export function SignIn() {
 
   return (
     <div>
-      <section className="py-10 flex justify-center items-center h-screen ">
-        <div className="absolute top-0 left-0 w-full h-1/2 bg-primary">
-          <div className=" flex justify-center flex-col items-center lg:mt-12 mt-6">
-            <Typography variant="h5" className="font-bold mt-4 text-white">
+      <section className="flex h-screen items-center justify-center py-10 ">
+        <div className="absolute left-0 top-0 h-1/2 w-full bg-primary">
+          <div className=" mt-6 flex flex-col items-center justify-center lg:mt-12">
+            <Typography variant="h5" className="mt-4 font-bold text-white">
               SmartCity Reserved Parking System
             </Typography>
-            <Typography variant="h3" className="font-bold mt-4 text-white">
+            <Typography variant="h3" className="mt-4 font-bold text-white">
               Violation Management Web Portal
             </Typography>
           </div>
         </div>
-        <div className="absolute bottom-0 left-0 w-full h-1/2 bg-secondary"></div>
-        <div className="z-10 max-w-md md:w-full bg-white p-12 rounded-lg shadow-xl">
+        <div className="bg-secondary absolute bottom-0 left-0 h-1/2 w-full"></div>
+        <div className="z-10 max-w-md rounded-lg bg-white p-12 shadow-xl md:w-full">
           <div className="text-left">
-            <header className="bg-primary p-1 w-full rounded-lg flex content-center justify-around">
-              <div className="h-[32] w-[60]  flex">
-                {' '}
+            <header className="flex w-full content-center justify-around rounded-lg bg-primary p-1">
+              <div className="flex h-[32]  w-[60]">
+                {" "}
                 <img
                   src="/img/whp_logo.png"
                   alt=""
@@ -114,7 +128,7 @@ export function SignIn() {
                 />
               </div>
               <img src="/img/smart_parking_logo.png" alt="" />
-              <div className="h-[32] w-[81] flex">
+              <div className="flex h-[32] w-[81]">
                 <img
                   src="/img/smart_philippines_logo.png"
                   alt=""
@@ -123,14 +137,14 @@ export function SignIn() {
               </div>
             </header>
 
-            <Typography variant="h2" className="font-bold mt-4">
+            <Typography variant="h2" className="mt-4 font-bold">
               Sign In
             </Typography>
             <Typography
               variant="paragraph"
               color="blue-gray"
-              className="text-sm font-normal mb-6"
-              style={{ color: 'gray' }}
+              className="mb-6 text-sm font-normal"
+              style={{ color: "gray" }}
             >
               Enter your email and password to Sign In.
             </Typography>
@@ -149,7 +163,7 @@ export function SignIn() {
                 placeholder="Enter your email"
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                 labelProps={{
-                  className: 'before:content-none after:content-none',
+                  className: "before:content-none after:content-none",
                 }}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -167,18 +181,18 @@ export function SignIn() {
                 placeholder="Enter your password"
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                 labelProps={{
-                  className: 'before:content-none after:content-none',
+                  className: "before:content-none after:content-none",
                 }}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <div className="text-right mt-2">
+            <div className="mt-2 text-right">
               <Link
                 className="font-medium text-primary"
                 onClick={handleForgotPassword}
               >
-                {' '}
+                {" "}
                 Forgot Password
               </Link>
             </div>
@@ -191,14 +205,18 @@ export function SignIn() {
             >
               Sign In
             </Button>
-            {error && <p>{error}</p>}
+            {error && (
+              <Typography className="pt-2 text-center text-red-500">
+                {error}*
+              </Typography>
+            )}
           </form>
         </div>
       </section>
       <Modal2
         isOpen={isOpen}
         onClose={handleCloseModal}
-        title={'Forgot Password?'}
+        title={"Forgot Password?"}
       >
         <div className="p-4">
           <Typography variant="h6" className="mb-2 font-semibold">

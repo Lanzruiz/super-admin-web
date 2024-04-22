@@ -1,24 +1,24 @@
-import React, { createContext, useContext, useEffect, useReducer } from 'react';
+import React, { createContext, useContext, useEffect, useReducer } from "react";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const initialState = {
-    isLoggedIn: localStorage.getItem('token') ? true : false,
+    isLoggedIn: localStorage.getItem("token") ? true : false,
     user: null,
-    token: localStorage.getItem('token'),
+    token: localStorage.getItem("token"),
   };
 
   const reducer = (state, action) => {
     switch (action.type) {
-      case 'LOGIN':
+      case "LOGIN":
         return {
           ...state,
-          isLoggedIn: action.payload.user ? true : false,
+          isLoggedIn: true,
           user: action.payload.user,
         };
-      case 'LOGOUT':
-        localStorage.removeItem('token');
+      case "LOGOUT":
+        localStorage.removeItem("token");
         return {
           ...state,
           isLoggedIn: false,
@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }) => {
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 };

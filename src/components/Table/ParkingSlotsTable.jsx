@@ -10,14 +10,13 @@ import { MoreHoriz, UnfoldMore } from "@mui/icons-material";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import Modal2 from "../Modal2";
-import { Box, Grid } from "@mui/material";
-import FormTextField from "../Forms/FormTextField";
-import FormLabel from "../Forms/FormLabel";
-import UpdateModal from "../ModalForms/UpdateModal";
-import DeleteModal from "../ModalForms/DeleteModal";
+import { Box, Grid, TextField } from "@mui/material";
+import MapComponent from "../Map/MapComponent";
+import UpdateParkingSlotModal from "../ModalForms/ParkingSlot/UpdateParkingSlotModal.";
+import ObjectReader from "../Cards/ObjectReader";
+import DeleteParkingSlotModal from "../ModalForms/ParkingSlot/DeleteParkingSlotModal";
 
-export default function Table2({
+export default function ParkingSlotsTable({
   data,
   headers,
   filterKeysValues,
@@ -28,6 +27,7 @@ export default function Table2({
   children,
   triggerNotif,
   modalTitle,
+  mapData,
 }) {
   const [tableData, setTableData] = useState([]);
   const [tableHeaders, setTableHeaders] = useState([]);
@@ -58,15 +58,15 @@ export default function Table2({
     if (data) {
       const modifiedData = data.map((item) => {
         const newData = { ...item };
-        for (const key in newData) {
-          if (typeof newData[key] === "object" && newData[key] !== null) {
-            // newData[key] = newData[key].description || '';
-            newData[key] =
-              newData[key].description ||
-              (objectCellFinder && newData[key][objectCellFinder]) ||
-              "Object found";
-          }
-        }
+        // for (const key in newData) {
+        //   if (typeof newData[key] === "object" && newData[key] !== null) {
+        //     // newData[key] = newData[key].description || '';
+        //     newData[key] =
+        //       newData[key].description ||
+        //       (objectCellFinder && newData[key][objectCellFinder]) ||
+        //       "Object found";
+        //   }
+        // }
         return newData;
       });
       setTableData(modifiedData);
@@ -165,12 +165,13 @@ export default function Table2({
   return (
     <div className="flex flex-col">
       <div className="mb-4 flex w-full justify-between">
-        <SearchField
-          searchQuery={searchQuery}
-          handleSearchQuery={setSearchQuery}
-          handleSearch={handleSearch}
-        />
-        <div>{children}</div>
+        {/* <DropdownTextField onOptionSelected={handleOptionSelected} /> */}
+
+        {/* will render the button on the side */}
+        <div className="flex w-full flex-row justify-between ">{children}</div>
+
+        {/* <MapComponent /> */}
+
         {/* <div className="w-1/4">
           <input
             type="text"
@@ -181,6 +182,20 @@ export default function Table2({
           />
         </div> */}
       </div>
+      {mapData && (
+        <Box
+          sx={{
+            width: "400px",
+            height: " 300px",
+          }}
+        >
+          <MapComponent
+            latitude={mapData.latitude}
+            longitude={mapData.longitude}
+            zoom={mapData.initialZoom}
+          />
+        </Box>
+      )}
       <div className="mb-2">
         <Pagination2
           postsPerPage={itemsPerPage}
@@ -258,26 +273,37 @@ export default function Table2({
                     style={{
                       width: "auto",
                       // textAlign: `${keyName === 'status' ? 'center' : 'left'}`,
-                      cursor: "pointer",
+                      // cursor: "pointer",
                       // transition: 'background-color 0.3s',
                     }}
-                    onClick={() => handleCellClick(item)}
+                    // onClick={() => handleCellClick(item)}
                   >
                     {/* Check if item has the corresponding key */}
                     {customCell && customCell === header && (
                       <StatusBadge
-                        status={item.hasOwnProperty(header) ? item[header] : ""}
+                        status={
+                          item && item.hasOwnProperty(header)
+                            ? item[header]
+                            : ""
+                        }
                       />
                     )}
-                    {header !== customCell && (
-                      <Typography>
-                        {item.hasOwnProperty(header)
-                          ? item[header] !== null
-                            ? item[header]
-                            : "No Input"
-                          : ""}
-                      </Typography>
-                    )}
+                    {header !== customCell &&
+                      (item.hasOwnProperty(header) ? (
+                        item[header] !== null ? (
+                          typeof item[header] === "object" ? (
+                            <Box>
+                              <ObjectReader item={item[header]} />
+                            </Box>
+                          ) : (
+                            <Typography>{item[header]}</Typography>
+                          )
+                        ) : (
+                          <Typography>No Input</Typography>
+                        )
+                      ) : (
+                        ""
+                      ))}
                   </td>
                 );
               })}
@@ -343,7 +369,6 @@ export default function Table2({
         </tbody>
       </table>
       <div className="flex justify-center p-4"></div>
-
       {isModalOpen.modalOpen && (
         <Modal
           isOpen={isModalOpen.modalOpen}
@@ -352,9 +377,8 @@ export default function Table2({
           title={modalTitle}
         />
       )}
-
       {isModalOpen.openUpdateModal && (
-        <UpdateModal
+        <UpdateParkingSlotModal
           openUpdateModal={isModalOpen.openUpdateModal}
           closeModal={closeModal("openUpdateModal")}
           rowData={rowData}
@@ -362,9 +386,8 @@ export default function Table2({
           toggleSnack={triggerNotif}
         />
       )}
-
       {isModalOpen.openDeleteModal && (
-        <DeleteModal
+        <DeleteParkingSlotModal
           openDeleteModal={isModalOpen.openDeleteModal}
           closeDeleteModal={closeModal("openDeleteModal")}
           rowData={rowData}
