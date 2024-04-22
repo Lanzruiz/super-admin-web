@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { GET_OFFICERS, GET_WEB_USERS } from "@/graphql/queries";
+import { GET_VIOLATION_WEB_USER } from "@/graphql/queries";
 import { useEffect, useState } from "react";
 import LoadingScreen from "@/components/LoadingScreen/LoadingScreen";
 import CardHeader from "@/components/CardHeader";
@@ -9,7 +9,7 @@ import CreateViolationOfficerModal from "@/components/ModalForms/ViolationOffice
 import RegularSnackBar from "@/components/Notification/RegularSnackBar";
 
 export function ViolationsOfficer() {
-  const { loading, error, data, refetch } = useQuery(GET_WEB_USERS);
+  const { loading, error, data, refetch } = useQuery(GET_VIOLATION_WEB_USER);
   const [webUsers, setWebUsers] = useState();
   const [tableHead, setTableHead] = useState();
   const [isOpen, setIsOpen] = useState(false);
@@ -44,6 +44,15 @@ export function ViolationsOfficer() {
     "vehicleId",
     "violationTypeId",
     "updatedAt",
+    "token",
+    "status",
+    "roleId",
+    "password",
+    "createdBy",
+    "updatedBy",
+    "fullName",
+    "createdAt",
+    "address",
   ];
   const tHeaders = [
     // 'violationType',
@@ -58,17 +67,19 @@ export function ViolationsOfficer() {
   useEffect(() => {
     if (data) {
       setWebUsers(
-        data.getWebUsers.filter(
+        data.violationWebUser.filter(
           (ea) => ea.role && ea.role.roleName === "Violation Officer",
         ),
       );
       setTableHead(
         data &&
-          data.getWebUsers.length !== 0 &&
-          Object.keys(data.getWebUsers[0]),
+          data.violationWebUser.length !== 0 &&
+          Object.keys(data.violationWebUser[0]),
       );
     }
   }, [data]);
+
+  console.log(webUsers);
 
   return (
     <div className="m-0 flex-wrap justify-evenly overflow-y-auto border-l px-4 pl-4 md:flex-nowrap">

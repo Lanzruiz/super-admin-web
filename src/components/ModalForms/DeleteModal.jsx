@@ -1,20 +1,11 @@
-import ModalWrapper from '@/components/Modal/ModalWrapper';
-import Modal2 from '@/components/Modal2';
-import RegularSnackBar from '@/components/Notification/RegularSnackBar';
-import { DELETE_USER } from '@/graphql/mutations';
-import { useMutation } from '@apollo/client';
-import {
-  Box,
-  Paper,
-  Typography,
-  Button,
-  Snackbar,
-  Slide,
-  SnackbarContent,
-  Alert,
-} from '@mui/material';
-import { red } from '@mui/material/colors';
-import React, { useState } from 'react';
+import ModalWrapper from "@/components/Modal/ModalWrapper";
+import Modal2 from "@/components/Modal2";
+import RegularSnackBar from "@/components/Notification/RegularSnackBar";
+import { DELETE_VIOLATION_WEB_USER } from "@/graphql/mutations";
+import { useMutation } from "@apollo/client";
+import { Box, Paper, Typography, Button } from "@mui/material";
+import { red } from "@mui/material/colors";
+import React, { useState } from "react";
 
 export default function DeleteModal({
   openDeleteModal,
@@ -23,7 +14,7 @@ export default function DeleteModal({
   refetchData,
   toggleSnack,
 }) {
-  const [deleteUser] = useMutation(DELETE_USER);
+  const [deleteViolationWebUser] = useMutation(DELETE_VIOLATION_WEB_USER);
   const [openSnack, setOpenSnack] = useState(false);
 
   const handleClose = () => {
@@ -32,13 +23,12 @@ export default function DeleteModal({
 
   const handleDelete = async () => {
     try {
-      const { data } = await deleteUser({
+      const { data } = await deleteViolationWebUser({
         variables: {
           id: rowData.id,
-          isWebUser: true,
         },
       });
-      toggleSnack('deleteUserSnack');
+      toggleSnack("deleteUserSnack");
       refetchData();
       closeDeleteModal();
     } catch (error) {}
@@ -57,7 +47,7 @@ export default function DeleteModal({
       >
         <Box
           style={{
-            textAlign: 'center',
+            textAlign: "center",
           }}
         >
           <Box>
@@ -66,25 +56,25 @@ export default function DeleteModal({
               p={2}
               mb={2}
               color={red[500]}
-              style={{ fontWeight: 'bold', textAlign: 'center' }}
+              style={{ fontWeight: "bold", textAlign: "center" }}
             >
               Deleting Account
             </Typography>
           </Box>
           <Box>
             <Typography>
-              Are you sure you want to delete{' '}
+              Are you sure you want to delete{" "}
               <strong>{rowData.fullName} ?</strong>
             </Typography>
           </Box>
-          <Box display={'flex'} justifyContent={'center'} gap={2} my={2}>
+          <Box display={"flex"} justifyContent={"center"} gap={2} my={2}>
             <Button
               size="large"
               variant="outlined"
               sx={{
-                color: 'gray',
-                borderColor: 'gray',
-                fontWeight: 'bold',
+                color: "gray",
+                borderColor: "gray",
+                fontWeight: "bold",
               }}
               onClick={() => closeDeleteModal()}
             >
@@ -94,8 +84,8 @@ export default function DeleteModal({
               size="large"
               variant="contained"
               style={{
-                backgroundColor: 'red',
-                fontWeight: 'bold',
+                backgroundColor: "red",
+                fontWeight: "bold",
               }}
               onClick={() => handleDelete()}
             >

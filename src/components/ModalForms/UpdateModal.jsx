@@ -1,14 +1,12 @@
-import { EDIT_USER } from '@/graphql/mutations';
-import { useMutation } from '@apollo/client';
-import React, { useState } from 'react';
-import FormLabel from '@/components/Forms/FormLabel';
-import FormTextField from '@/components/Forms/FormTextField';
-import Modal2 from '@/components/Modal2';
-import useRoles from '@/utils/hooks/useRoles';
-import { Button, Typography } from '@material-tailwind/react';
-import { Box, Grid, Paper } from '@mui/material';
-import ModalWrapper from '@/components/Modal/ModalWrapper';
-import RegularSnackBar from '@/components/Notification/RegularSnackBar';
+import { EDIT_VIOLATION_WEB_USER } from "@/graphql/mutations";
+import { useMutation } from "@apollo/client";
+import React, { useState } from "react";
+import FormLabel from "@/components/Forms/FormLabel";
+import FormTextField from "@/components/Forms/FormTextField";
+import useRoles from "@/utils/hooks/useRoles";
+import { Button, Typography } from "@material-tailwind/react";
+import { Box, Grid, Paper } from "@mui/material";
+import ModalWrapper from "@/components/Modal/ModalWrapper";
 
 export default function UpdateModal({
   openUpdateModal,
@@ -19,12 +17,13 @@ export default function UpdateModal({
   toggleSnack,
 }) {
   const { roles, rolesLoading } = useRoles();
-  const [editUser] = useMutation(EDIT_USER);
+  const [editUser] = useMutation(EDIT_VIOLATION_WEB_USER);
   const [formData, setFormData] = useState({
     id: rowData.id,
-    fullName: rowData.fullName || '',
-    email: rowData.email || '',
-    phoneNumber: rowData.phoneNumber || '',
+    firstName: rowData.firstName || "",
+    lastName: rowData.lastName || "",
+    email: rowData.email || "",
+    phoneNumber: rowData.phoneNumber || "",
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -45,18 +44,18 @@ export default function UpdateModal({
       const { data } = await editUser({
         variables: {
           id: formData.id,
-          userInput: {
-            fullName: formData.fullName,
+          violationWebUserInput: {
+            firstName: formData.firstName,
+            lastName: formData.lastName,
             email: formData.email,
             phoneNumber: formData.phoneNumber,
           },
-          isWebUser: true,
         },
       });
     } catch (error) {
       setError(error.message);
     }
-    toggleSnack('updateUserSnack');
+    toggleSnack("updateUserSnack");
     setLoading(false);
     refetchData();
     closeModal();
@@ -66,7 +65,7 @@ export default function UpdateModal({
     <ModalWrapper
       open={openUpdateModal}
       onClose={closeModal}
-      containerSize={'sm'}
+      containerSize={"sm"}
     >
       <Paper
         style={{
@@ -83,7 +82,7 @@ export default function UpdateModal({
           >
             <Typography
               variant="h4"
-              style={{ fontWeight: 'bold' }}
+              style={{ fontWeight: "bold" }}
               className="text-primary"
             >
               Update Information
@@ -91,10 +90,18 @@ export default function UpdateModal({
           </Box>
           <Grid container spacing={4}>
             <Grid item xs={6}>
-              <FormLabel>Full Name</FormLabel>
+              <FormLabel>First Name</FormLabel>
               <FormTextField
-                name="fullName"
-                value={formData.fullName}
+                name="firstName"
+                value={formData.firstName}
+                onChange={(e) => handleChange(e)}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <FormLabel>Last Name</FormLabel>
+              <FormTextField
+                name="lastName"
+                value={formData.lastName}
                 onChange={(e) => handleChange(e)}
               />
             </Grid>
@@ -106,7 +113,7 @@ export default function UpdateModal({
                 onChange={(e) => handleChange(e)}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={6}>
               <FormLabel>Email</FormLabel>
               <FormTextField
                 name="email"
@@ -125,7 +132,7 @@ export default function UpdateModal({
                 }}
                 disabled={loading}
               >
-                {loading ? 'Updating...' : 'Update'}
+                {loading ? "Updating..." : "Update"}
               </Button>
             </Box>
           </Box>
@@ -135,7 +142,7 @@ export default function UpdateModal({
             </Box>
           )}
         </Box>
-        
+        ;
       </Paper>
     </ModalWrapper>
   );

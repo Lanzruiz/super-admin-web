@@ -1,5 +1,31 @@
 import { gql } from "@apollo/client";
 
+export const GET_VIOLATION_WEB_USER = gql`
+  query ViolationWebUser {
+    violationWebUser {
+      id
+      firstName
+      lastName
+      fullName
+      email
+      phoneNumber
+      address
+      status
+      roleId
+      role {
+        id
+        roleName
+      }
+      password
+      token
+      createdAt
+      updatedAt
+      createdBy
+      updatedBy
+    }
+  }
+`;
+
 export const GET_USERS = gql`
   query User {
     user {

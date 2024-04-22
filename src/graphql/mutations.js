@@ -1,5 +1,47 @@
 import { gql } from "@apollo/client";
 
+export const CREATE_VIOLATION_WEB_USER = gql`
+  mutation CreateViolationWebUser(
+    $violationWebUserInput: ViolationWebUserInput
+  ) {
+    createViolationWebUser(violationWebUserInput: $violationWebUserInput) {
+      id
+      firstName
+      lastName
+      fullName
+      email
+      phoneNumber
+      address
+      status
+      roleId
+      role {
+        id
+        roleName
+      }
+      password
+      token
+      createdAt
+      updatedAt
+      createdBy
+      updatedBy
+    }
+  }
+`;
+
+export const EDIT_VIOLATION_WEB_USER = gql`
+  mutation EditViolationWebUser(
+    $id: ID!
+    $violationWebUserInput: ViolationWebUserInput
+  ) {
+    editViolationWebUser(ID: $id, violationWebUserInput: $violationWebUserInput)
+  }
+`;
+export const DELETE_VIOLATION_WEB_USER = gql`
+  mutation DeleteViolationWebUser($id: ID!) {
+    deleteViolationWebUser(ID: $id)
+  }
+`;
+
 export const CREATE_WEB_USER = gql`
   mutation CreateUser($userInput: UserInput) {
     createUser(userInput: $userInput) {
