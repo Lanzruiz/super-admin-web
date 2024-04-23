@@ -110,6 +110,7 @@ export function ParkingSiteManager() {
               objectCellFinder="roleName"
               refetchData={refetch}
               triggerNotif={handleToggle}
+              modalTitle={"Parking Site Manager"}
             >
               <button
                 className="rounded-xl bg-primary p-4 text-white"

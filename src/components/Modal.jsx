@@ -4,7 +4,7 @@ import "../../public/css/modal.css";
 import { namingFix } from "@/data/namingFix";
 import ObjectReader from "./Cards/ObjectReader";
 
-const Modal = ({ isOpen, onClose, rowData, title }) => {
+const Modal = ({ isOpen, onClose, rowData, title, filterKeys }) => {
   const filteration = [
     "__typename",
     "id",
@@ -17,16 +17,22 @@ const Modal = ({ isOpen, onClose, rowData, title }) => {
     if (!rowData) return null;
 
     return Object.entries(rowData)
-      .filter((fil) => !filteration.includes(fil[0]))
+      .filter((fil) =>
+        filterKeys
+          ? !filterKeys.includes(fil[0])
+          : !filteration.includes(fil[0]),
+      )
       .map(([key, value], index) => {
         let textColorClass = "";
         if (key === "status") {
-          if (value.toLowerCase() === "resolved") {
-            textColorClass = "text-green-600";
-          } else if (value.toLowerCase() === "pending") {
-            textColorClass = "text-orange-400";
-          } else {
-            textColorClass = "text-red-600";
+          if (typeof value !== "boolean") {
+            if (value.toLowerCase() === "resolved") {
+              textColorClass = "text-green-600";
+            } else if (value.toLowerCase() === "pending") {
+              textColorClass = "text-orange-400";
+            } else {
+              textColorClass = "text-red-600";
+            }
           }
         }
 

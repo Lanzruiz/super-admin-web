@@ -1,12 +1,12 @@
-import { Card, Typography } from '@material-tailwind/react';
-import React, { useEffect, useState } from 'react';
-import { namingFix } from '@/data/namingFix';
-import Pagination from '../Pagination';
-import StatusBadge from '../StatusBadge';
-import Modal from '../Modal';
-import Pagination2 from '../Pagination/Pagination2';
-import SearchField from '../SearchField';
-import { MoreHoriz, UnfoldMore } from '@mui/icons-material';
+import { Card, Typography } from "@material-tailwind/react";
+import React, { useEffect, useState } from "react";
+import { namingFix } from "@/data/namingFix";
+import Pagination from "../Pagination";
+import StatusBadge from "../StatusBadge";
+import Modal from "../Modal";
+import Pagination2 from "../Pagination/Pagination2";
+import SearchField from "../SearchField";
+import { MoreHoriz, UnfoldMore } from "@mui/icons-material";
 
 export default function ViolationsTable({
   data,
@@ -28,10 +28,10 @@ export default function ViolationsTable({
     openDeleteModal: false,
   });
   const [rowData, setRowData] = useState(null);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [filteredData, setFilteredData] = useState([]);
   const [sortColumn, setSortColumn] = useState(null);
-  const [sortOrder, setSortOrder] = useState('asc'); // or 'desc'
+  const [sortOrder, setSortOrder] = useState("asc"); // or 'desc'
   const [anchorEl, setAnchorEl] = useState(null);
   // const [openUpdateModal, setOpenUpdateModal] = useState(false);
 
@@ -49,7 +49,7 @@ export default function ViolationsTable({
       const modifiedData = data.map((item) => {
         const newData = { ...item };
         for (const key in newData) {
-          if (typeof newData[key] === 'object' && newData[key] !== null) {
+          if (typeof newData[key] === "object" && newData[key] !== null) {
             // newData[key] = newData[key].description || '';
             newData[key] =
               newData[key].description ||
@@ -79,7 +79,7 @@ export default function ViolationsTable({
       ].sort((a, b) => {
         const valueA = a[sortColumn];
         const valueB = b[sortColumn];
-        if (sortOrder === 'asc') {
+        if (sortOrder === "asc") {
           return valueA.localeCompare(valueB);
         } else {
           return valueB.localeCompare(valueA);
@@ -98,8 +98,8 @@ export default function ViolationsTable({
         (key) =>
           item[key] &&
           item[key].toString().toLowerCase().trim() ===
-            searchQuery.toLowerCase().trim() // Use === for exact match
-      )
+            searchQuery.toLowerCase().trim(), // Use === for exact match
+      ),
     );
     setFilteredData(filteredData);
     setCurrentPage(1);
@@ -108,11 +108,11 @@ export default function ViolationsTable({
   const handleHeaderClick = (header) => {
     if (sortColumn === header) {
       // Toggle sorting order if the same column is clicked again
-      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+      setSortOrder(sortOrder === "asc" ? "desc" : "asc");
     } else {
       // Sort by the clicked column in ascending order by default
       setSortColumn(header);
-      setSortOrder('asc');
+      setSortOrder("asc");
     }
   };
 
@@ -154,7 +154,7 @@ export default function ViolationsTable({
 
   return (
     <div className="flex flex-col">
-      <div className="w-full flex justify-between mb-4">
+      <div className="mb-4 flex w-full justify-between">
         <SearchField
           searchQuery={searchQuery}
           handleSearchQuery={setSearchQuery}
@@ -176,31 +176,31 @@ export default function ViolationsTable({
             {tableHeaders.map((header, index) => {
               // Find the customized header from namingFix
               const customHeader = namingFix.find((item) =>
-                item.hasOwnProperty(header)
+                item.hasOwnProperty(header),
               );
               // Use the custom header if available, otherwise use the original header
               const displayHeader = customHeader
                 ? customHeader[header]
-                : header || '';
+                : header || "";
               return (
                 <th
                   key={index}
                   scope="col"
-                  className="border-b-2  border-gray-500 text-left py-6 px-4 w-min"
+                  className="w-min  border-b-2 border-gray-500 px-4 py-6 text-left"
                   onClick={() => handleHeaderClick(header)}
-                  style={{ cursor: 'pointer' }}
+                  style={{ cursor: "pointer" }}
                 >
                   <div className="flex items-center">
                     <Typography
                       variant="small"
-                      className="font-bold leading-none opacity-70 text-black"
+                      className="font-bold leading-none text-black opacity-70"
                       style={{
-                        fontWeight: 'bolder',
-                        fontSize: '1rem',
-                        textAlign: `${header === 'status' && 'center'}`,
+                        fontWeight: "bolder",
+                        fontSize: "1rem",
+                        textAlign: `${header === "status" && "center"}`,
                       }}
                     >
-                      {displayHeader !== null ? displayHeader : 'N/A'}
+                      {displayHeader !== null ? displayHeader : "N/A"}
                     </Typography>
                     <UnfoldMore />
                   </div>
@@ -217,11 +217,11 @@ export default function ViolationsTable({
                 return (
                   <td
                     key={headerIndex}
-                    className="py-8 px-4 text-left text-xs"
+                    className="px-4 py-8 text-left text-xs"
                     style={{
-                      width: 'auto',
+                      width: "auto",
                       // textAlign: `${keyName === 'status' ? 'center' : 'left'}`,
-                      cursor: 'pointer',
+                      cursor: "pointer",
                       // transition: 'background-color 0.3s',
                     }}
                     onClick={() => handleCellClick(item)}
@@ -229,7 +229,7 @@ export default function ViolationsTable({
                     {/* Check if item has the corresponding key */}
                     {customCell && customCell === header && (
                       <StatusBadge
-                        status={item.hasOwnProperty(header) ? item[header] : ''}
+                        status={item.hasOwnProperty(header) ? item[header] : ""}
                       />
                     )}
                     {header !== customCell && (
@@ -237,8 +237,8 @@ export default function ViolationsTable({
                         {item.hasOwnProperty(header)
                           ? item[header] !== null
                             ? item[header]
-                            : 'No Input'
-                          : ''}
+                            : "No Input"
+                          : ""}
                       </Typography>
                     )}
                   </td>
@@ -252,8 +252,9 @@ export default function ViolationsTable({
       {isModalOpen.modalOpen && (
         <Modal
           isOpen={isModalOpen.modalOpen}
-          onClose={closeModal('modalOpen')}
+          onClose={closeModal("modalOpen")}
           rowData={rowData}
+          title={"Violations"}
         />
       )}
     </div>
