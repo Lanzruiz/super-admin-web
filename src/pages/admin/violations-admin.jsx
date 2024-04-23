@@ -107,6 +107,7 @@ export function ViolationsAdmin() {
               objectCellFinder="roleName"
               refetchData={refetch}
               triggerNotif={handleToggle}
+              modalTitle={"Violation Admin"}
             >
               <button
                 className="rounded-xl bg-primary p-4 text-white"

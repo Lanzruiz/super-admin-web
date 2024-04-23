@@ -350,6 +350,7 @@ export default function Table2({
           onClose={closeModal("modalOpen")}
           rowData={rowData}
           title={modalTitle}
+          filterKeys={filterKeysValues}
         />
       )}
 
