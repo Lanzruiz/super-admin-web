@@ -14,7 +14,6 @@ export default function DeleteParkingSlotModal({
 }) {
   const [deleteParkingSlot] = useMutation(DELETE_PARKING_SLOT);
   const [openSnack, setOpenSnack] = useState(false);
-  console.log(rowData);
 
   const handleClose = () => {
     setOpenSnack(false);

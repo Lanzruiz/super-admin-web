@@ -90,4 +90,13 @@ export const namingFix = [
   {
     succeedingHoursRate: "Succeeding Hours Rate",
   },
+  {
+    role: "Role",
+  },
+  {
+    firstName: "First Name",
+  },
+  {
+    lastName: "Last Name",
+  },
 ];

@@ -19,6 +19,7 @@ import DeleteModal from "../ModalForms/DeleteModal";
 
 export default function Table2({
   data,
+  dataProperty,
   headers,
   filterKeysValues,
   itemsPerPage,
@@ -44,7 +45,6 @@ export default function Table2({
   const [sortOrder, setSortOrder] = useState("asc"); // or 'desc'
   const [anchorEl, setAnchorEl] = useState(null);
   // const [openUpdateModal, setOpenUpdateModal] = useState(false);
-
   const totalData =
     filteredData.length !== 0 ? filteredData.length : tableData.length;
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -360,6 +360,7 @@ export default function Table2({
           rowData={rowData}
           refetchData={refetchData}
           toggleSnack={triggerNotif}
+          dataProperty={dataProperty}
         />
       )}
 
@@ -370,6 +371,7 @@ export default function Table2({
           rowData={rowData}
           refetchData={refetchData}
           toggleSnack={triggerNotif}
+          dataProperty={dataProperty}
         />
       )}
     </div>

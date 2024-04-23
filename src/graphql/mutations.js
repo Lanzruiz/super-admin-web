@@ -1,5 +1,98 @@
 import { gql } from "@apollo/client";
 
+export const CREATE_VIOLATION_WEB_USER = gql`
+  mutation CreateViolationWebUser(
+    $violationWebUserInput: ViolationWebUserInput
+  ) {
+    createViolationWebUser(violationWebUserInput: $violationWebUserInput) {
+      id
+      firstName
+      lastName
+      fullName
+      email
+      phoneNumber
+      address
+      status
+      roleId
+      role {
+        id
+        roleName
+      }
+      password
+      token
+      createdAt
+      updatedAt
+      createdBy
+      updatedBy
+    }
+  }
+`;
+
+export const EDIT_VIOLATION_WEB_USER = gql`
+  mutation EditViolationWebUser(
+    $id: ID!
+    $violationWebUserInput: ViolationWebUserInput
+  ) {
+    editViolationWebUser(ID: $id, violationWebUserInput: $violationWebUserInput)
+  }
+`;
+export const DELETE_VIOLATION_WEB_USER = gql`
+  mutation DeleteViolationWebUser($id: ID!) {
+    deleteViolationWebUser(ID: $id)
+  }
+`;
+
+export const CREATE_PARKING_SITE_WEB_USER = gql`
+  mutation CreateParkingsiteWeUser(
+    $parkingsiteWebUserInput: ParkingsiteWebUserInput
+  ) {
+    createParkingsiteWeUser(parkingsiteWebUserInput: $parkingsiteWebUserInput) {
+      id
+      firstName
+      lastName
+      fullName
+      email
+      phoneNumber
+      address
+      status
+      roleId
+      role {
+        id
+        roleName
+      }
+      parkingLotId
+      assignedParkingLot {
+        id
+        parkingLotName
+      }
+      password
+      token
+      createdAt
+      updatedAt
+      createdBy
+      updatedBy
+    }
+  }
+`;
+
+export const EDIT_PARKING_SITE_WEB_USER = gql`
+  mutation EditParkingsiteWeUser(
+    $id: ID!
+    $parkingsiteWebUserInput: ParkingsiteWebUserInput
+  ) {
+    editParkingsiteWeUser(
+      ID: $id
+      parkingsiteWebUserInput: $parkingsiteWebUserInput
+    )
+  }
+`;
+
+export const DELETE_PARKING_SITE_WEB_USER = gql`
+  mutation DeleteParkingsiteWeUser($id: ID!) {
+    deleteParkingsiteWeUser(ID: $id)
+  }
+`;
+
 export const CREATE_WEB_USER = gql`
   mutation CreateUser($userInput: UserInput) {
     createUser(userInput: $userInput) {
@@ -26,6 +119,28 @@ export const EDIT_USER = gql`
 export const DELETE_USER = gql`
   mutation DeleteUser($id: ID!, $isWebUser: Boolean) {
     deleteUser(ID: $id, isWebUser: $isWebUser)
+  }
+`;
+
+export const CREATE_PARKING_LOT = gql`
+  mutation CreateParkingLot($parkingLotInput: ParkingLotInput) {
+    createParkingLot(parkingLotInput: $parkingLotInput) {
+      id
+      parkingLotName
+      initialZoom
+      location
+      longitude
+      latitude
+      totalSlots
+      parkingSlots {
+        id
+        parkingSlotName
+      }
+      parkingRates {
+        id
+        parkingRateName
+      }
+    }
   }
 `;
 

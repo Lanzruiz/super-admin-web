@@ -35,11 +35,6 @@ export function SignIn() {
         },
       });
 
-      console.log("Login Response: ", data);
-      console.log(
-        "LOGGED IN? ",
-        data.loginOfficer && data.loginOfficer.id ? true : false,
-      );
       if (data.loginOfficer && data.loginOfficer.id) {
         const token =
           data.loginOfficer && data.loginOfficer.id
