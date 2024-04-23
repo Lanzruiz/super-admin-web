@@ -22,7 +22,7 @@ export default function CreateParkingRatesModal({
   const [error, setError] = useState(null);
   const [optionSelected, setOptionSelected] = useState();
   const [formData, setFormData] = useState({
-    parkingLotId: parkingLotData ? parkingLotData.id : "",
+    parkingLotId: "",
     parkingRateName: "",
     firstXHoursRate: "",
     firstXHours: "",
@@ -50,7 +50,8 @@ export default function CreateParkingRatesModal({
   const handleOptionSelected = (option) => {
     setFormData((prevData) => ({
       ...prevData,
-      ["slotType"]: option ? option.label : "",
+      ["vehicleType"]: option ? option.label : "",
+      ["parkingLotId"]: parkingLotData && parkingLotData.id,
     }));
   };
 
@@ -72,13 +73,15 @@ export default function CreateParkingRatesModal({
           },
         },
       });
+      if (data) {
+        triggerNotif("createSnack");
+        setLoading(false);
+        refetchData();
+        closeModal();
+      }
     } catch (error) {
       setError(error.message);
     } finally {
-      triggerNotif("createSnack");
-      setLoading(false);
-      refetchData();
-      closeModal();
     }
   };
 
