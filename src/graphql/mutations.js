@@ -122,6 +122,28 @@ export const DELETE_USER = gql`
   }
 `;
 
+export const CREATE_PARKING_LOT = gql`
+  mutation CreateParkingLot($parkingLotInput: ParkingLotInput) {
+    createParkingLot(parkingLotInput: $parkingLotInput) {
+      id
+      parkingLotName
+      initialZoom
+      location
+      longitude
+      latitude
+      totalSlots
+      parkingSlots {
+        id
+        parkingSlotName
+      }
+      parkingRates {
+        id
+        parkingRateName
+      }
+    }
+  }
+`;
+
 export const EDIT_PARKING_LOT = gql`
   mutation UpdateParkingLot(
     $updateParkingLotId: ID!

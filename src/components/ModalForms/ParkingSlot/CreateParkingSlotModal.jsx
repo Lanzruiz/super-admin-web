@@ -112,9 +112,9 @@ export default function CreateParkingSlotModal({
           }}
         >
           <MapComponent
-            longitude={125.6060495}
-            latitude={7.0696712}
-            zoom={18.75}
+            longitude={(parkingLotData && parkingLotData.longitude) || 0}
+            latitude={(parkingLotData && parkingLotData.latitude) || 0}
+            zoom={(parkingLotData && parkingLotData.initialZoom) || 20}
           />
         </Box>
         <Box
