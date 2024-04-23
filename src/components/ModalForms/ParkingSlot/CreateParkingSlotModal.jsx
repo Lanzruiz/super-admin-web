@@ -7,6 +7,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { CREATE_PARKING_SLOT } from "@/graphql/mutations";
 import ModalWrapper from "@/components/Modal/ModalWrapper";
 import MapComponent from "@/components/Map/MapComponent";
+import AutocompleteTextField from "@/components/Autocomplete/AutocompleteTextField";
 
 export default function CreateParkingSlotModal({
   openModal,
@@ -47,6 +48,12 @@ export default function CreateParkingSlotModal({
     setFormData((prevData) => ({
       ...prevData,
       [name]: newValue,
+    }));
+  };
+  const handleOptionSelected = (option) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      ["slotType"]: option ? option.label : "",
     }));
   };
 
@@ -151,10 +158,13 @@ export default function CreateParkingSlotModal({
               </Grid>
               <Grid item xs={12}>
                 <FormLabel>Slot Type*</FormLabel>
-                <FormTextField
+                {/* <FormTextField
                   name="slotType"
                   value={formData.slotType}
                   onChange={(e) => handleChange(e)}
+                /> */}
+                <AutocompleteTextField
+                  onOptionSelected={handleOptionSelected}
                 />
               </Grid>
               <Grid item xs={12}>

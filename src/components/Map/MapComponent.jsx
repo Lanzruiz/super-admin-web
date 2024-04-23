@@ -18,7 +18,7 @@ export default function MapComponent({
   // Use useEffect to refresh the map when latitude or longitude changes
   useEffect(() => {
     setMapKey((prevKey) => prevKey + 1); // Increment key to force re-render
-  }, [latitude, longitude]);
+  }, [latitude, longitude, zoom]);
 
   return (
     <MapContainer

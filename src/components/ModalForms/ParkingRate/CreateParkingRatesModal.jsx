@@ -7,6 +7,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { CREATE_PARKING_RATE } from "@/graphql/mutations";
 import ModalWrapper from "@/components/Modal/ModalWrapper";
 import MapComponent from "@/components/Map/MapComponent";
+import AutocompleteTextField from "@/components/Autocomplete/AutocompleteTextField";
 
 export default function CreateParkingRatesModal({
   openModal,
@@ -19,6 +20,7 @@ export default function CreateParkingRatesModal({
     useMutation(CREATE_PARKING_RATE);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [optionSelected, setOptionSelected] = useState();
   const [formData, setFormData] = useState({
     parkingLotId: parkingLotData ? parkingLotData.id : "",
     parkingRateName: "",
@@ -42,6 +44,13 @@ export default function CreateParkingRatesModal({
     setFormData((prevData) => ({
       ...prevData,
       [name]: newValue,
+    }));
+  };
+
+  const handleOptionSelected = (option) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      ["slotType"]: option ? option.label : "",
     }));
   };
 
@@ -117,10 +126,13 @@ export default function CreateParkingRatesModal({
               </Grid>
               <Grid item xs={12}>
                 <FormLabel>Vehicle Type*</FormLabel>
-                <FormTextField
+                {/* <FormTextField
                   name="vehicleType"
                   value={formData.vehicleType}
                   onChange={(e) => handleChange(e)}
+                /> */}
+                <AutocompleteTextField
+                  onOptionSelected={handleOptionSelected}
                 />
               </Grid>
               <Grid item xs={12}>
