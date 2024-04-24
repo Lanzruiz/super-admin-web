@@ -256,11 +256,28 @@ export const GET_PARKING_RATES = gql`
   query ParkingRates {
     parkingRates {
       id
+      parkingLotId
       parkingRateName
       firstXHours
       firstXHoursRate
       succeedingHoursRate
       vehicleType
+    }
+  }
+`;
+
+export const GET_PARKING_RATE_BY_ID = gql`
+  query GetParkingRateByLotId($parkingLotId: ID!) {
+    getParkingRateByLotId(parkingLotId: $parkingLotId) {
+      id
+      parkingLotId
+      parkingRateName
+      vehicleType
+      firstXHours
+      firstXHoursRate
+      succeedingHoursRate
+      createdAt
+      updatedAt
     }
   }
 `;

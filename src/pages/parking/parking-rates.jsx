@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { GET_PARKING_RATES } from "@/graphql/queries";
+import { GET_PARKING_RATES, GET_PARKING_RATE_BY_ID } from "@/graphql/queries";
 import { useEffect, useState } from "react";
 import LoadingScreen from "@/components/LoadingScreen/LoadingScreen";
 import CardHeader from "@/components/CardHeader";
@@ -11,8 +11,10 @@ import CreateParkingRatesModal from "@/components/ModalForms/ParkingRate/CreateP
 
 export function ParkingRates() {
   const [optionSelected, setOptionSelected] = useState();
-  const { loading, error, data, refetch } = useQuery(GET_PARKING_RATES, {
-    variables: { parkingLotId: optionSelected && optionSelected.id },
+  const { loading, error, data, refetch } = useQuery(GET_PARKING_RATE_BY_ID, {
+    variables: {
+      parkingLotId: (optionSelected && optionSelected.id) || "",
+    },
   });
 
   const pageTitle = "Parking Rates";
@@ -27,6 +29,8 @@ export function ParkingRates() {
     // "latitude",
     "lastStatusChange",
     "parkingRates",
+    "updatedAt",
+    "createdAt",
   ];
   const [isOpen, setIsOpen] = useState(false);
   const [openSnack, setOpenSnack] = useState({
@@ -36,11 +40,11 @@ export function ParkingRates() {
   });
 
   useEffect(() => {
-    if (optionSelected) {
-      setParkingRates(optionSelected.parkingRates);
+    if (data) {
+      setParkingRates(data.getParkingRateByLotId);
       setTableHead(
-        optionSelected.parkingRates.length > 0 &&
-          Object.keys(optionSelected.parkingRates[0]),
+        data.getParkingRateByLotId.length > 0 &&
+          Object.keys(data.getParkingRateByLotId[0]),
       );
     }
   }, [data]);
@@ -65,9 +69,9 @@ export function ParkingRates() {
   };
   const handleOptionSelected = (option) => {
     setOptionSelected(option);
-    // Handle the selected option here
   };
-  // console.log("TABLE DATA: ", optionSelected);
+
+  console.log("PARKING RATES: ", data);
 
   return (
     <div className="m-0 flex-wrap justify-evenly overflow-y-auto border-l px-4 pl-4 md:flex-nowrap">
