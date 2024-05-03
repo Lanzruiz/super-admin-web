@@ -20,7 +20,7 @@ const graphQL_WS_LINK =
   import.meta.env.VITE_GRAPHQL_WS_LINK || 'sit-subscriber-service-700169728060';
 
 const http_Link =
-  import.meta.env.VITE_HTTP_LINK || 'api-gateway-dev-63ce04ea4115';
+  import.meta.env.VITE_HTTP_LINK || 'sit-api-gateway-a5612301702e';
 
 const httpLink = new HttpLink({
   uri: `https://${http_Link}.herokuapp.com/`,
