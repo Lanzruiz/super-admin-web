@@ -15,7 +15,7 @@ const wsLink =
   typeof window !== 'undefined'
     ? new GraphQLWsLink(
         createClient({
-          url: 'wss://dev-subscriber-service-cb525d752b82.herokuapp.com/graphql',
+          url: 'wss://34.204.36.37:3000/graphql',
         })
       )
     : null;

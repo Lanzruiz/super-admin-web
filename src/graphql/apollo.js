@@ -23,12 +23,12 @@ const http_Link =
   import.meta.env.VITE_HTTP_LINK || 'sit-api-gateway-a5612301702e';
 
 const httpLink = new HttpLink({
-  uri: `https://${http_Link}.herokuapp.com/`,
+  uri: `http://52.91.176.213:4000/`,
 });
 
 const wsLink = new GraphQLWsLink(
   createClient({
-    url: `wss://${graphQL_WS_LINK}.herokuapp.com/graphql`,
+    url: `wss://34.204.36.37:3000/graphql`,
   })
 );
 
